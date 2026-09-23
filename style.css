@@ -1,0 +1,29 @@
+/* flex means to stack them horizontally rather than vertically 
+flex wrap is to allow the stacked divs to go on another line if theres not enough space*/
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+}
+
+#container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: white;
+  position: relative;
+}
+
+.vertical {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+}

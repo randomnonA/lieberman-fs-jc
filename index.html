@@ -1,1 +1,69 @@
-<h1>Hello World Wide Web!</h1>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>Artist's / My Sketch</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+     <div id="container"></div>
+      <script>
+        
+        /* Let allows the variable "Container" to actually be an accessible varible and "document.getElementById" means that the container variable will be able to be altered if specifically called on
+        https://www.youtube.com/watch?v=WhCYEW_J870&t=1s
+        */
+        let container = document.getElementById("container");
+        
+        /** 
+        This is a for loop that is set horizontally to fit 500 of my circle divs in the page starting from 0 - 499.
+        document.createElement("div") means I've created a new div and named circle, giving it the circle properties and then storing it into container which is then repeated for 5000 times
+        
+        **/
+        for (let i = 0; i < 5000; i++) {
+          let circle = document.createElement("div");
+          circle.className = "circle";
+          container.appendChild(circle);
+        }
+        
+        /* 
+        QuerySelectorAll selects the HTMLS that have .circle class 
+        mx and my are the intital mouse positions set to 0
+        */
+        let circles = document.querySelectorAll(".circle");
+        let mx = 0;
+        let my = 0;
+        
+        /*
+        Eventlistener is just registering when the mouse moves
+        https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event
+        */
+        document.addEventListener("mousemove", function(move) {
+           mx = move.clientX;
+           my = move.clientY + window.scrollY;
+         });
+                            
+        /*
+        dodge makes it so that the circles avoid the mouse
+        https://rinblog.org/en/repelling-effect-implementation-en/
+        */
+        function dodge() {
+          /*
+          For each selected circle, the circle will move according to the calculations below
+          offsetLeft = how far the pixels are from the left corner; https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetLeft
+          */
+           circles.forEach(function(circle) {
+             let x = circle.offsetLeft;
+             let y = circle.offsetTop;
+             /* Checking if the mouse is in a close enough radius to the circle, checking all 4 directions using ands and if it does meet the requirement, the circle close enough to the mouse will go up 5 pixels and right 5 pixels */
+             if (mx > x - 100 && mx < x + 100 && my > y - 100 && my < y + 100) {
+               circle.style.left = x + 5 + "px";
+               circle.style.top = y + 5 + "px";
+           }
+         });
+        }
+        /* Makes the dodge function activate 50 miliseconds everytime the code is running 
+        https://www.w3schools.com/jsref/met_win_setinterval.asp*/
+        setInterval(dodge, 50);
+        
+    </script>
+  </body>
+</html>
